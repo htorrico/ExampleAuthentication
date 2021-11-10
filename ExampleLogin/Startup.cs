@@ -25,7 +25,7 @@ namespace ExampleLogin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)                
                 .AddCookie(x => x.LoginPath = "/Login/Index");
          
         }
@@ -50,9 +50,9 @@ namespace ExampleLogin
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

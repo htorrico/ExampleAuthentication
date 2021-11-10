@@ -12,7 +12,7 @@ namespace ExampleLogin.Controllers
 {
     
 
-    [Authorize(Roles = "Admin")]
+    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,12 +22,17 @@ namespace ExampleLogin.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
         }
-        
+
+        [Authorize]
+        public IActionResult Test()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

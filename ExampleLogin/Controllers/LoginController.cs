@@ -22,7 +22,7 @@ namespace ExampleLogin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(AuthenticateViewModel model, string ReturnUrl)
+        public async Task<IActionResult> Index(AuthenticateViewModel model)
         {
             try
             {
@@ -44,14 +44,14 @@ namespace ExampleLogin.Controllers
                         //Initialize a new instance of the ClaimsPrincipal with ClaimsIdentity    
                         var principal = new ClaimsPrincipal(identity);
                         //SignInAsync is a Extension method for Sign in a principal for the specified scheme.    
-                         HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties()
+                         await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties()
                         {
                             //IsPersistent = objLoginModel.RememberLogin
                             IsPersistent = false
                          });
 
 
-
+                        //return LocalRedirect(ReturnUrl);
 
                         return RedirectToAction("Index", "Home");
                         //if (user.RoleId == 2)
@@ -86,10 +86,10 @@ namespace ExampleLogin.Controllers
             return View();
         }
 
-        public IActionResult LogOut()
+        public async Task<IActionResult> LogOut()
         {
             //SignOutAsync is Extension method for SignOut    
-             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+           await  HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             //Redirect to home page    
             return LocalRedirect("/");
         }
